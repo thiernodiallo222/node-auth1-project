@@ -6,20 +6,20 @@ const session = require('express-session');
 
 const usersRouter = require("../users/user-router");
 
-const sessionConfig = {
-  name: 'cookie monster',
+
+server.use(session({
+  // name: 'cookie monster',
   secret: 'this is my secret sentence !',
-  cookie:{
-    maxAge: 1000 * 60 * 60 * 24 * 365, // duration for one year
-    secure:false, // true in production to allow only https
-    httpOnly: true
-  },
+  saveUninitialized: false,
   resave: false,
-  saveUnitialized: fals,
-}
+  
+   cookie:{
+  maxAge: 1000 * 60 * 60 * 24 * 365, // duration for one year
+  secure:false, // should be true in production to allow only https
+  httpOnly: true
+  },
+}));
 
-
-server.user(sessionConfig());
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
